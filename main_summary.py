@@ -41,13 +41,13 @@ def inputWindowGUI():
     # gradient when window is resized
     root.bind('<Configure>', lambda event, canvas=canvas: resizeWindow(event, canvas))
 
-    customFont = Font(family="Helvetica", size=14)
+    customFont = Font(family="Helvetica", size=16)
     buttonFont = Font(family="Broadway", size=12, weight="bold")
 
-    Label(canvas, text="Enter the movie title:", bg='black', fg='white', font=customFont).pack(pady=5)
+    Label(canvas, text="Enter the movie / tv show title:", bg='black', fg='white', font=customFont).pack(pady=5)
 
     # text widget for input
-    inputText = scrolledtext.ScrolledText(canvas, wrap=tk.WORD, height=1, width=38, borderwidth=2, relief="solid", highlightbackground="blue")
+    inputText = scrolledtext.ScrolledText(canvas, wrap=tk.WORD, height=1, width=30, borderwidth=2, relief="solid", highlightbackground="blue", font=customFont)
     inputText.pack(padx=10, pady=5)
 
     # movie info button
@@ -60,7 +60,7 @@ def inputWindowGUI():
     outputLabel.pack_forget()  
 
     # Text widget for output
-    outputText = scrolledtext.ScrolledText(canvas, wrap=tk.WORD, height=11, width=60, bg='light gray', borderwidth=2, relief="solid", highlightbackground="blue")
+    outputText = scrolledtext.ScrolledText(canvas, wrap=tk.WORD, height=12, width=60, bg='light gray', borderwidth=2, relief="solid", highlightbackground="blue")
     outputText.pack(padx=10, pady=5)
     outputText.config(state=tk.DISABLED)
     outputText.pack_forget()
@@ -70,7 +70,7 @@ def inputWindowGUI():
         movieTitle = inputText.get("1.0", "end-1c").strip()
         if movieTitle:
             try:
-                prompt = f"Provide a summary, about three sentences, on the movie titled '{movieTitle}' and provide one piece of trivia about the movie. Combine this into one answer. If the movie actually exists."
+                prompt = f"If the movie or tv show '{movieTitle}' actually exist. Provide a detailed summary, about four sentences, on the movie, or tv show titled '{movieTitle}' and provide one piece of trivia about the movie. Combine this into one answer."
                 response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
                     messages=[
